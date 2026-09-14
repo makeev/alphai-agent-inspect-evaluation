@@ -1,0 +1,16 @@
+{
+  "name": "alphai-agent-inspect-evaluation",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node minimal-mcp-repro.mjs && node evaluate.mjs && node make-reports.mjs",
+    "evaluate": "node evaluate.mjs",
+    "reports": "node make-reports.mjs"
+  },
+  "dependencies": {
+    "agent-inspect": "6.29.1",
+    "@agent-inspect/mcp": "6.29.1",
+    "@modelcontextprotocol/sdk": "1.30.0"
+  }
+}
