@@ -4,6 +4,12 @@ Local evaluation of the published `agent-inspect@6.29.1` and
 `@agent-inspect/mcp@6.29.1` packages, September 14, 2026.
 The MCP transport dependency is `@modelcontextprotocol/sdk@1.30.0`.
 
+The flow under test is a synthetic client of the public AlphAI MCP server
+([mcp.alphai.io](https://alphai.io/mcp), an AI financial news feed): one
+`alphai_ticker_news` read, a 429 carrying `retry_after_seconds` and the limiting
+window, a wait, and one retry. Nothing here reaches AlphAI or any other network
+service; the transport is the real MCP SDK with an injected synthetic fetch.
+
 ## Run
 
 ```sh
@@ -84,5 +90,21 @@ The installed MCP bundle contains its own `AsyncLocalStorage` and `stepImpl`.
 The application core package uses another instance, explaining the capture gap
 even though `npm ls agent-inspect` reports one deduplicated dependency.
 
-No upstream package was patched. No production configuration or service code was
-changed. No message or issue was submitted.
+No upstream package was patched, and no production configuration or service code
+was changed.
+
+## Upstream status
+
+Reported to the maintainer on September 14, 2026 and confirmed against the
+shipped artifact. Upstream issues opened September 16, 2026:
+
+- [#413](https://github.com/rajudandigam/agent-inspect/issues/413): the published
+  wrapper bundles a second runtime and loses `inspectRun` context.
+- [#414](https://github.com/rajudandigam/agent-inspect/issues/414): structured
+  manual arguments are unreachable by tool-argument checks.
+- [#415](https://github.com/rajudandigam/agent-inspect/issues/415): manual
+  instrumentation drops a thrown error's numeric code.
+
+The assertions in this repository encode 6.29.1 behavior on purpose, so it stays
+a usable failing baseline. When a fixed release lands, test it in a separate
+directory rather than editing these expectations in place.
