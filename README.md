@@ -104,6 +104,9 @@ shipped artifact. Upstream issues opened September 16, 2026:
   manual arguments are unreachable by tool-argument checks.
 - [#415](https://github.com/rajudandigam/agent-inspect/issues/415): manual
   instrumentation drops a thrown error's numeric code.
+- [#420](https://github.com/rajudandigam/agent-inspect/issues/420): `wrapMcpClient`
+  spreads the SDK client, so prototype methods are dropped and private state is
+  shallow-copied. Filed from this fixture; it survives any fix to #413.
 
 The assertions in this repository encode 6.29.1 behavior on purpose, so it stays
 a usable failing baseline. When a fixed release lands, test it in a separate
